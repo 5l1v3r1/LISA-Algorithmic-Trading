@@ -17,6 +17,7 @@ def save_tickers():
         pickle.dump(tickers, f)
 
 def getData():
+    save_tickers()
     with open('sp500tickers.pickle', 'rb') as f:
         tickers = pickle.load(f)
         print tickers
