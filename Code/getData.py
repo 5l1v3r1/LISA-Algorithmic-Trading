@@ -1,6 +1,5 @@
 # imports
 import pandas as pd
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 import os
 import datetime as dt
@@ -38,7 +37,6 @@ def getData():
 def compileData():
     with open('sp500tickers.pickle', 'rb') as f:
         tickers = pickle.load(f)
-
     file_df = pd.DataFrame()
 
     for ticker in tickers:
@@ -52,5 +50,11 @@ def compileData():
         else: file_df = file_df.merge(df, on='Date', how='outer')
     file_df.to_csv('sp500data.csv')
 
+def _data_manipulation():
+    df = pd.read_csv('sp500data.csv', index_col=0) # first column has index values.
+    df_corr = df.corr() # gets the correlation table.
+    print df_corr.head()
+
+
 if __name__ == '__main__':
-    compileData()
+    _data_manipulation()
